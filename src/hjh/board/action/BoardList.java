@@ -28,7 +28,12 @@ public class BoardList implements Action {
 		int nowPage = 1;
 		int board_code=0;
 		if(request.getParameter("board_code")==null){
-			board_code= Integer.parseInt(context.getAttribute("board_code").toString());	
+			if(context.getAttribute("board_code")==null){
+				response.sendRedirect("index.jsp");
+			}else{
+				board_code= Integer.parseInt(context.getAttribute("board_code").toString());
+			}
+			
 		}else{
 		board_code=Integer.parseInt(request.getParameter("board_code"));	
 		}

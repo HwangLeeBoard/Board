@@ -26,7 +26,7 @@ color: white;
 </head>
 <body style="background-image: url('img/IQ.jpg');">
 <br><h1 style="color: purple;"><center>후니의 홈페이지에 오신것을 환영합니다!!</center></h1>
-${mem }
+
 
 <%
 HttpSession sess = request.getSession();

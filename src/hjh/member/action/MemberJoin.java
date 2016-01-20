@@ -19,14 +19,14 @@ public class MemberJoin implements Action {
 		// TODO Auto-generated method stub
 		MemberDAO mDao = new MemberDAO();
 		Forward forward = new Forward();
-		PrintWriter out = response.getWriter();
+//		PrintWriter out = response.getWriter();
 		String email = request.getParameter("email");
 		int result =0;
 		
 		result = mDao.idChk(email);
 		
 		if (result==1) {
-			out.println("<script>alert('중복된 아이디가 있습니다.');</script>");
+//			out.println("<script>alert('중복된 아이디가 있습니다.');</script>");
 			forward.setDispacher(false);
 			forward.setPath("JoinForm.do");
 		}else{
@@ -40,7 +40,7 @@ public class MemberJoin implements Action {
 			MemberDTO mDto = new MemberDTO(0, email, passwd, name, gender, pnum, joindate, logintime, ip);
 			mDao.join(mDto);
 			forward.setDispacher(false);
-			forward.setPath("List.do");
+			forward.setPath("index.jsp");
 		}
 		return forward;
 		

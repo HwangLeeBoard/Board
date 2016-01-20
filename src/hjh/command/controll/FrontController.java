@@ -70,7 +70,7 @@ public class FrontController extends HttpServlet {
 			forward.setDispacher(true);
 		
 		} else if (path.equals("/List.do")) {
-			
+		
 			action = new BoardList();
 			forward = action.excute(request, response);
 
@@ -118,6 +118,7 @@ public class FrontController extends HttpServlet {
 		if (forward != null) {
 			if (forward.isDispacher() == false) {
 				response.sendRedirect(forward.getPath());
+				
 			} else {
 				RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
 				dis.forward(request, response);

@@ -112,7 +112,7 @@ public class MemberDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			closeAll(null, ps, con);
+			closeAll(rs, ps, con);
 		}
 		return memberDTO;
 	}

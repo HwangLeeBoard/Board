@@ -55,13 +55,17 @@ ${spray }
 현재 페이지 ${page }
 <hr>
 <%
-int board_code=0;
+/*int board_code=0;
 if(request.getParameter("board_code")==null){
-	board_code= Integer.parseInt(application.getAttribute("board_code").toString());	
+	if(application.getAttribute("board_code")==null){
+		response.sendRedirect("index.jsp");
+	}else{
+	board_code= Integer.parseInt(application.getAttribute("board_code").toString());			
+	}
 }else{
 board_code=Integer.parseInt(request.getParameter("board_code"));	
 }
-application.setAttribute("board_code", board_code);
+application.setAttribute("board_code", board_code);*/
 %>
 <input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='Write.do?board_code=${board_code}&categorys=1'">
 <input type="button" value="main" class="btn btn-primary" onclick="location.href='index.do'">
