@@ -29,7 +29,7 @@ color: white;
 
 <input type="button"  onclick="location.href='LoginForm.do'" class="purple" value="LogIn">
 <br><br><br><br>
-<h3 style="color: red;">잡담</h3>
+<h3 style="color: red;">잡담w</h3>
 <input type="button"  onclick="location.href='List.do?page=1&board_code=1&categorys=1'" class="btn btn-primary" value="후니 자유게시판 이동"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <input type="button"  onclick="location.href='List.do?page=1&board_code=2&categorys=1'" class="btn btn-primary" value="후니 유머게시판 이동"><br><br>
 <input type="button"  onclick="location.href='List.do?page=1&board_code=3&categorys=1'" class="btn btn-primary" value="후니 소설추천 게시판 이동">
