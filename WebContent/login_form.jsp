@@ -41,7 +41,7 @@ $(document).ready(function() {
 						$("#inputemail").attr("placeholder","회원정보가 없습니다.");
 						//alert("회원정보가 없습니다.");
 					}else{
-						location.href='List.do';
+						location.href='index.jsp';
 					}
 					
 				},
