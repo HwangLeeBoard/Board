@@ -31,7 +31,7 @@ if (sess.getAttribute("mem")==null){ %>
 <c:forEach items="${listDTO }" var="list">
 <tr>
 <td>${list.idx }</td>
-<td><a href="View.do?num=${list.idx }">${list.title }</a></td>
+<td><a href="View.do?num=${list.idx }&board_code=${board_code}">${list.title }</a></td>
 <td>${list.writer }</td>
 <td>${list.dateTime }</td>
 </tr>

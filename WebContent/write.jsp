@@ -12,7 +12,7 @@
 <title>게시판</title>
 </head>
 <body style="padding:30px;">
-${board_code}
+
 <form action="Insert.do" method="post"  enctype="multipart/form-data">
 <input type="hidden" name="id" value="${mem.id }">
 <input type="hidden" name="board_code" value="${board_code }">

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import hjh.board.action.BoardInsert;
 import hjh.board.action.BoardList;
 import hjh.board.action.BoardView;
+import hjh.board.action.CommentInsert;
 import hjh.member.action.MemberJoin;
 import hjh.member.action.MemberLogin;
 import hjh.member.action.MemberLoginTest;
@@ -70,7 +71,6 @@ public class FrontController extends HttpServlet {
 			forward.setDispacher(true);
 		
 		} else if (path.equals("/List.do")) {
-		
 			action = new BoardList();
 			forward = action.excute(request, response);
 
@@ -112,6 +112,9 @@ public class FrontController extends HttpServlet {
 			forward = new Forward();
 			forward.setDispacher(false);
 			forward.setPath("index.jsp");
+		} else if (path.equals("/CommentInsert.do")) {
+			action = new CommentInsert();
+			forward=action.excute(request, response);
 		}
 		
 		
