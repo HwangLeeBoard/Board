@@ -31,7 +31,7 @@ public class MemberLogin implements Action{
 			mDto= mDao.selById(email);
 			session.setAttribute("mem", mDto);
 			forward.setDispacher(false);
-			forward.setPath("List.do");
+			forward.setPath("index.jsp");
 		}else if (result==2) {
 			out.println("<script>alert('패스워드가 틀립니다.');location.href='LoginForm.do'</script>");
 			return null;
