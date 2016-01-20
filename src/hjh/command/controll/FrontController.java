@@ -1,7 +1,6 @@
 package hjh.command.controll;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -71,7 +70,7 @@ public class FrontController extends HttpServlet {
 			forward.setDispacher(true);
 		
 		} else if (path.equals("/List.do")) {
-			
+		
 			action = new BoardList();
 			forward = action.excute(request, response);
 
@@ -97,6 +96,7 @@ public class FrontController extends HttpServlet {
 		} else if (path.equals("/Login.do")) {
 			action = new MemberLogin();
 			forward=action.excute(request, response);
+			
 
 		} else if (path.equals("/Logout.do")) {
 			HttpSession session = request.getSession();
@@ -104,7 +104,7 @@ public class FrontController extends HttpServlet {
 			session.invalidate();
 			forward = new Forward();
 			forward.setDispacher(false);
-			forward.setPath("List.do");
+			forward.setPath("index.jsp");
 		}else if (path.equals("/Test.do")) {
 			action = new MemberLoginTest();
 			forward=action.excute(request, response);
@@ -118,6 +118,7 @@ public class FrontController extends HttpServlet {
 		if (forward != null) {
 			if (forward.isDispacher() == false) {
 				response.sendRedirect(forward.getPath());
+				
 			} else {
 				RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
 				dis.forward(request, response);

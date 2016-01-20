@@ -121,7 +121,7 @@ public class BoardDAO {
 		}
 		count /= PAGE_NUM;
 		count+=i;
-		System.out.println("count = "+ count);
+	
 		return count;
 	}
 
