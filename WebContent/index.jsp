@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"prefix="c" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,6 +26,7 @@ color: white;
 </head>
 <body style="background-image: url('img/IQ.jpg');">
 <br><h1 style="color: purple;"><center>후니의 홈페이지에 오신것을 환영합니다!!</center></h1>
+
 <input type="button"  onclick="location.href='LoginForm.do'" class="purple" value="LogIn">
 <br><br><br><br>
 <h3 style="color: red;">잡담</h3>
