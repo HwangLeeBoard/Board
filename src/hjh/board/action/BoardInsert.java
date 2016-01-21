@@ -24,10 +24,12 @@ public class BoardInsert implements Action {
 	@Override
 	public Forward excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String path = request.getRealPath("file1");
+		
 		FileDAO fDao = new FileDAO();
 		Forward forward = new Forward();
+		
 		File fileObj = null;
+		String path = request.getRealPath("file1");
 		int size = 1024 * 1024 * 10;
 		String name = "";
 		String filename = null;
@@ -38,7 +40,7 @@ public class BoardInsert implements Action {
 		MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy()
 
 		);
-
+		//int page = Integer.parseInt(multi.getParameter("page"));
 		int board_code = Integer.parseInt(multi.getParameter("board_code"));
 //		int categorys = Integer.parseInt(multi.getParameter("categorys"));
 		String writer = multi.getParameter("writer");
@@ -49,7 +51,6 @@ public class BoardInsert implements Action {
 		String remote_addr = request.getRemoteAddr();
 		String is_comment = "";
 		String dateTime="";
-		
 		String is_notice = "";
 		int likecnt = 0;
 		int badcnt = 0;
@@ -63,10 +64,11 @@ public class BoardInsert implements Action {
 		int member_seq =0;
 
 		
-		BoardDTO bDto = new BoardDTO(0, 0, 0, title, writer, passwd, email, content, remote_addr, dateTime, is_notice, likecnt, badcnt, is_comment, is_reply, is_private, seq, levels, step, fileCnt, hits, member_seq);
+		BoardDTO bDto = new BoardDTO(0, board_code, 0, title, writer, passwd, email, content, remote_addr, dateTime, is_notice, likecnt, badcnt, is_comment, is_reply, is_private, seq, levels, step, fileCnt, hits, member_seq);
 		
 		bDao.insert(bDto);
 		int boardnum = bDao.curIdx();
+		System.out.println(bDao);
 		
 		int filesize;
 		try {
@@ -88,8 +90,8 @@ public class BoardInsert implements Action {
 		} catch (Exception e) {
 
 		}
-		forward.setDispacher(true);
-		forward.setPath("List.do");
+		forward.setDispacher(false);
+		forward.setPath("List.do?board_code="+board_code);
 		
 		return forward;
 

@@ -29,34 +29,47 @@ font-size:15px;
 </style>
 </head>
 <body style="padding:30px">
-<div class="viewbox">
-	<span class="title" >${BoardDto.title }</span>
-	<div style="border-bottom: 4px dotted #e5e5e5;padding:5px"></div>
-	<br> ${BoardDto.content }
-	
-	<br><br>
-		파일 :
+<form action="Update.do" method="post"  enctype="multipart/form-data" id="form1">
+<input type="hidden" name="id" value="${mem.id }">
+<input type="hidden" name="idx" value="${BoardDto.idx }">
+<input type="hidden" name="board_code" value="${BoardDto.board_code }">
+<input type="hidden" name="categorys" value="${BoardDto.categorys }">
+
+
+	<div class="form-group">
+   	 	<label>작성자</label>
+		<input type="text" name="writer" class="form-control" value="${BoardDto.writer }">
+  	</div>
+  	<div class="form-group">
+   	 	<label for="exampleInputEmail1">제목</label>
+		<input type="text" name="title" class="form-control" value="${BoardDto.title }">
+  	</div>
+  	<div class="form-group">
+   	 	<label for="exampleInputEmail1">파일</label>
+		
 	<c:forEach items="${Filelist }" var="f">
 	 <a href="FileDown.do?filename=${f.filename }">${f.filename }</a> 
 		<br>
 		<!-- <img src="file1/${f.filename }" width="150"> -->
 	</c:forEach>
-</div>
-	<input type="button"
-		onclick="location.href='ReplyView.do?idx=${BoardDto.idx}'"  class="btn btn-primary" value="답변">
-	<input type="button"
-		onclick="location.href='UpdateView.do?idx=${BoardDto.idx}'" class="btn btn-primary" value="수정">
-	<input type="button"
-		onclick="location.href='Delete.do?idx=${BoardDto.idx}&board_code=${board_code }'" class="btn btn-primary" value="삭제">
-	<input type="button" onclick="location.href='List.do?board_code=${board_code}'" class="btn btn-primary" value="리스트">
+  	</div>
+  	<div class="form-group">
+   	 	<textarea name="content" class="form-control" 
+						style="width: 100%; height: 200px">${BoardDto.content }</textarea>
+  	</div>
+ 
 	
-	<input type="button" onclick="location.href='IsLike.do?idx=${BoardDto.idx}&like=Y'" class="btn btn-primary" value="좋아요">
-	<input type="button" onclick="location.href='IsLike.do?idx=${BoardDto.idx}&like=N'" class="btn btn-primary" value="싫어요">
+
+	</form>
+	
+	<input type="button"
+		onclick="$('#form1').submit()" class="btn btn-primary" value="수정">
+	<input type="button"
+		onclick="history.back()" class="btn btn-primary" value="취소">
+	
 	<br>
 	
-	
-	
-	<%@include file="comment.jsp" %>
+
 	
 </body>
 </html>

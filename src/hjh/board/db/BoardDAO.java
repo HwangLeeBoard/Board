@@ -500,4 +500,34 @@ public class BoardDAO {
 		return dto;
 	}
 
+	public void update(BoardDTO bDto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE BOARD set "
+				+ "TITLE = ?, "
+				+ "WRITER = ?, "
+				+ "CONTENT = ?, "
+				+ "REMOTE_ADDR = ?, "
+				+ "IS_NOTICE = ? "
+				+ "WHERE idx=?";
+		System.out.println(sql);
+		try {
+			con = MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bDto.getTitle());
+			pstmt.setString(2, bDto.getWriter());
+			pstmt.setString(3, bDto.getContent());
+			pstmt.setString(4, bDto.getRemote_addr());
+			pstmt.setString(5, bDto.getIs_notice());
+			pstmt.setInt(6, bDto.getIdx());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(null, pstmt, con);
+		}
+		
+	}
+
 }

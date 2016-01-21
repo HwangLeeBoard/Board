@@ -13,12 +13,14 @@
 </head>
 <body style="padding:30px;">
 
-<form action="Insert.do" method="post"  enctype="multipart/form-data">
+<form action="BoardReply.do" method="post" >
 <input type="hidden" name="id" value="${mem.id }">
-<input type="hidden" name="board_code" value="${board_code }">
+<input type="hidden" name="board_code" value="${BoardDto.board_code }">
 <input type="hidden" name="page" value="${page }">
 <input type="hidden" name="categorys" value="${categorys }">
-
+<input type = "hidden" name="repRoot" value="${BoardDto.seq }">
+<input type = "hidden" name="repStep" value="${BoardDto.step }">
+<input type = "hidden" name="repIndent" value="${BoardDto.levels }">
 
 	<div class="form-group">
    	 	<label for="exampleInputEmail1">작성자</label>
@@ -28,11 +30,7 @@
    	 	<label for="exampleInputEmail1">제목</label>
 		<input type="text" name="title" class="form-control">
   	</div>
-  	<div class="form-group">
-   	 	<label for="exampleInputEmail1">파일</label>
-		<input type = "file" name = "file1" class="form-control" multiple="multiple">
-		
-  	</div>
+  
   	<div class="form-group">
    	 	<textarea name="content" class="form-control" 
 						style="width: 100%; height: 200px"></textarea>

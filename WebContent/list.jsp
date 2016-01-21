@@ -70,7 +70,7 @@ ${spray }
 
 <hr>
 
-<input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='Write.do?board_code=${board_code}&categorys=1'">
+<input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='Write.do?board_code=${board_code}&categorys=1&page=${page }'">
 </center>
 <input type="button" value="main" class="btn btn-primary" onclick="location.href='index.do'">
 

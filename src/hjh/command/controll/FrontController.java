@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import hjh.board.action.BoardConfigInsert;
+import hjh.board.action.BoardDelete;
 import hjh.board.action.BoardInsert;
 import hjh.board.action.BoardList;
+import hjh.board.action.BoardReply;
+import hjh.board.action.BoardReplyView;
 import hjh.board.action.BoardView;
 import hjh.board.action.CommentInsert;
 import hjh.board.action.IsLike;
+import hjh.board.action.Update;
+import hjh.board.action.UpdateView;
 import hjh.member.action.AdminLogin;
 import hjh.member.action.MemberJoin;
 import hjh.member.action.MemberLogin;
@@ -131,6 +136,22 @@ public class FrontController extends HttpServlet {
 		}else if (path.equals("/IsLike.do")) {
 			action = new IsLike();
 			forward=action.excute(request, response);
+		}else if (path.equals("/UpdateView.do")) {
+			action = new UpdateView();
+			forward=action.excute(request, response);
+		}else if (path.equals("/Update.do")) {
+			action = new Update();
+			forward=action.excute(request, response);
+		}else if (path.equals("/Delete.do")) {
+			action = new BoardDelete();
+			forward=action.excute(request, response);
+		}else if (path.equals("/ReplyView.do")) {
+			action = new BoardReplyView();
+			forward=action.excute(request, response);
+		}else if (path.equals("/BoardReply.do")) {
+			action = new BoardReply();
+			forward=action.excute(request, response);
+			
 		}
 		
 		if (forward != null) {
