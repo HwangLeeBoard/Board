@@ -21,13 +21,22 @@ if (sess.getAttribute("mem")==null){ %>
 <%}else{ %>
 <input type="button" value="로그아웃" class="btn btn-primary" onclick="location.href='Logout.do'">
 <%} %>
+
+
+<table width="100%">
+<tr><td width="250"><jsp:include page="indexmenu.jsp"></jsp:include>	</td>
+
+
+<td align="left" valign="top">
+
+
 <table class="table">
 <tr>
-<td width="40" rowspan="11">
-		<jsp:include page="indexmenu.jsp"></jsp:include></td>
 <th>번호</th>
 <th>제목</th>
 <th>작성자</th>
+<th>좋아요</th>
+<th>싫어요</th>
 <th>등록일</th>
 </tr>
 <c:forEach items="${listDTO }" var="list">
@@ -35,6 +44,8 @@ if (sess.getAttribute("mem")==null){ %>
 <td>${list.idx }</td>
 <td><a href="View.do?num=${list.idx }&board_code=${board_code}">${list.title }</a></td>
 <td>${list.writer }</td>
+<td>${list.likecnt }</td>
+<td>${list.badcnt }</td>
 <td>${list.dateTime }</td>
 </tr>
 </c:forEach>
@@ -62,6 +73,10 @@ ${spray }
 <input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='Write.do?board_code=${board_code}&categorys=1'">
 </center>
 <input type="button" value="main" class="btn btn-primary" onclick="location.href='index.do'">
+
+
+</td></tr>
+</table>	
 
 </body>
 </html>
