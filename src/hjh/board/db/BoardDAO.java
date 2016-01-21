@@ -241,6 +241,7 @@ public class BoardDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int a=0;
 		int count=0;
 		ArrayList<BoardDTO> dto = new ArrayList<BoardDTO>();
 		String sql = "SELECT A.IDX, " + "A.BOARD_CODE," + " A.CATEGORYS," + " A.TITLE," + " A.WRITER,"
