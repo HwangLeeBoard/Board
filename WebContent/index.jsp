@@ -57,9 +57,11 @@
 
 	<table>
 	<tr>
+		<td>
 		<jsp:include page="indexmenu.jsp"></jsp:include>
+		</td>
 			<td><c:forEach   begin="1" step="1" end="30">
-	&nbsp;
+	<%-- &nbsp;--%>
 	</c:forEach></td>
 			<td><jsp:include page="newlist.jsp"></jsp:include> 
 			<%-- 		<%@include file="newlist.jsp" %>
