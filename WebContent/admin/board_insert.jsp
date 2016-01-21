@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="hjh.board.db.BoardConfigDTO"%>
+<%@page import="hjh.board.db.BoardConfigDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -12,12 +15,27 @@
 <title>후니후니</title>
 <body>
 <body style="padding:30px;">
-
+<%
+	BoardConfigDAO bcDAO = new BoardConfigDAO();
+	BoardConfigDTO bcDTO = new BoardConfigDTO();
+	ArrayList<BoardConfigDTO> list = bcDAO.list();
+	
+	pageContext.setAttribute("list", list);
+	
+%>
 <form action="../BoardConfigInsert.do" method="post"  >
 
 	<div class="form-group">
    	 	<label>테이블명</label>
 		<input type="text" name="board_name" class="form-control" value="">
+  	</div>
+  	<div class="form-group">
+   	 	<label>테이블 코드</label><br>
+   	 	<c:forEach var="x" items="${list }" varStatus="s">
+		${x.board_name }:  <span style="font-weight:bold">${x.board_code }</span>&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:forEach>
+		<input type="text" name="board_code" class="form-control" value="">
+		
   	</div>
   	<div class="form-group">
    	 	<label>파일업로드</label>
