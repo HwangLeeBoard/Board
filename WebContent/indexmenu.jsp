@@ -15,14 +15,16 @@
 	BoardConfigDTO dto = new BoardConfigDTO();
 	BoardConfigDAO dao = new BoardConfigDAO();
 	ArrayList<BoardConfigDTO> array= new ArrayList<BoardConfigDTO>();
-	//array = dao.list();
+	array = dao.list();
 	request.setAttribute("list", array);
 	
 	%>
-	<h3 style="color: red;">잡담</h3><br>	
-	<c:forEach begin="0" step="1" end="10" items="list" var="x">	
-	<ul><li><a href="list.do?page=1&board_code=${x.board_code }">${x.board_name } </a></li></ul><br>
-	</c:forEach>
+	<h3 style="color: red;">잡담</h3><br>	<ul>
+	<c:forEach begin="0" step="1" end="10" items="${list }" var="x">	
+	<li>
+	<a href="List.do?page=1&board_code=${x.board_code }"> 
+	${x.board_name } </a></li><br>
+	</c:forEach></ul>
 	<h3 style="color: red;">자료공유</h3><br>	
 	<c:forEach begin="10" step="1" items="list" var="x">
 	value="${x.board_name }" class="btn btn-primary"> <br>
