@@ -113,46 +113,55 @@ public class BoardConfigDAO {
 		return max;
 	}
 
-	public ArrayList<BoardDTO> list() {
+	public ArrayList<BoardConfigDTO> list() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<BoardDTO> dto = new ArrayList<BoardDTO>();
-		String sql = "SELECT A.IDX, " + "A.BOARD_CODE," + "    A.CATEGORYS," + "       A.TITLE," + "       A.WRITER,"
-				+ "       A.PASSWD," + "       A.EMAIL," + "       A.CONTENT," + "       A.REMOTE_ADDR,"
-				+ "       to_char(A.DATE_TIME,'yyyy-mm-dd') DATE_TIME, " + "       A.IS_NOTICE,"
-				+ "       A.likecnt,A.badcnt," + "       A.IS_COMMENT," + "       A.IS_REPLY," + "       A.IS_PRIVATE,"
-				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
-				+ "       A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
+		ArrayList<BoardConfigDTO> list = new ArrayList<BoardConfigDTO>();
+		String sql = "SELECT A.IDX,"
+				+ "       A.BOARD_NAME,"
+				+ "       A.BOARD_CODE,"
+				+ "       A.BAORD_TYPE,"
+				+ "       A.URL,"
+				+ "       A.IS_DELETE,"
+				+ "       to_char(A.CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,"
+				+ "       to_char(A.UPDATE_TIME,'yyyy-mm-dd') UPDATE_TIME,"
+				+ "       A.IS_OPEN,"
+				+ "       A.IS_REPLY,"
+				+ "       A.IS_COMMENT,"
+				+ "       A.EDITER,"
+				+ "       A.IS_FILE,"
+				+ "       A.FILE_CNT,"
+				+ "       A.IS_READONLY,"
+				+ "       A.IS_VIEWCNT,"
+				+ "       A.IS_LOCK,"
+				+ "       A.IS_NOTICE"
+				+ "  FROM BOARD_CONFIG A";
 		try {
 			pstmt = getCon(con, pstmt, sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int idx = rs.getInt("idx");
-				int board_code = rs.getInt("board_code");
-				int categorys = rs.getInt("categorys");
-				String title = rs.getString("title");
-				String writer = rs.getString("writer");
-				String passwd = rs.getString("passwd");
-				String email = rs.getString("email");
-				String content = rs.getString("content");
-				String remote_addr = rs.getString("remote_addr");
-				String dateTime = rs.getString("date_Time");
+				String board_name = rs.getString("board_name");
+				String board_code =  rs.getString("board_code");
+				String baord_type = rs.getString("baord_type");
+				String url =  rs.getString("url");
+				String is_delete =  rs.getString("is_delete");
+				String create_time =  rs.getString("create_time");
+				String update_time = rs.getString("update_time");
+				String is_open =  rs.getString("is_open");
+				String is_reply =  rs.getString("is_reply");
+				String is_comment =  rs.getString("is_comment");
+				int editer =  rs.getInt("editer");
+				String is_file = rs.getString("is_file");
+				int file_cnt = rs.getInt("file_cnt");
+				String is_readonly = rs.getString("is_readonly");
+				String is_viewcnt =  rs.getString("is_viewcnt");
+				String is_lock = rs.getString("is_lock");
 				String is_notice = rs.getString("is_notice");
-				int likecnt = rs.getInt("likecnt");
-				int badcnt = rs.getInt("badcnt");
-				String is_comment = rs.getString("is_comment");
-				String is_reply = rs.getString("is_reply");
-				String is_private = rs.getString("is_private");
-				int seq = rs.getInt("seq");
-				int levels = rs.getInt("levels");
-				int step = rs.getInt("step");
-				int fileCnt = rs.getInt("fileCnt");
-				int hits = rs.getInt("hits");
-				int member_seq = rs.getInt("member_seq");
-				dto.add(new BoardDTO(idx, board_code, categorys, title, writer, passwd, email, content, remote_addr,
-						dateTime, is_notice, likecnt, badcnt, is_comment, is_reply, is_private, seq, levels, step,
-						fileCnt, hits, member_seq));
+				BoardConfigDTO dto = new BoardConfigDTO(idx, board_name, board_code, baord_type, url, is_delete, create_time, update_time, is_open, is_reply, is_comment, editer, is_file, file_cnt, is_readonly, is_viewcnt, is_lock, is_notice);
+				list.add(dto);
+				
 
 			}
 		} catch (SQLException e) {
@@ -161,7 +170,7 @@ public class BoardConfigDAO {
 		} finally {
 			closeAll(rs, pstmt, con);
 		}
-		return dto;
+		return list;
 	}
 
 	
