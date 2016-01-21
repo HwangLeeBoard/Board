@@ -1,8 +1,5 @@
-
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,54 +8,11 @@
 <script src="js/bootstrap.js"></script>
 <link type="text/css" rel="stylesheet" href="css/bootstrap.css"
 	charset="euc-kr">
-<title>후니후니</title>
-
-<style type="text/css">
-.purple {
-	background-color: #ff00FF;
-	color: white;
-}
-</style>
-<style type="text/css">
-.red {
-	background-color: #ff0033;
-	color: white;
-}
-</style>
-
+<title>Insert title here</title>
 </head>
-<body style="background-image: url('img/IQ.jpg');">
-	<br>
-	<h1 style="color: purple;">
-		<center>후니의 홈페이지에 오신것을 환영합니다!!</center>
-	</h1>
-
-
-	<%
-		HttpSession sess = request.getSession();
-		if (sess.getAttribute("mem") == null) {
-	%>
-	<input type="button" value="회원가입" class="btn btn-primary"
-		onclick="location.href='JoinForm.do'">
-	<input type="button" onclick="location.href='LoginForm.do'"
-		class="purple" value="LogIn">
-	<%
-		} else {
-	%>
-	<input type="button" value="로그아웃" class="btn btn-primary"
-		onclick="location.href='Logout.do'">
-	<%
-		}
-		String block = "&nbsp;";
-	%>
-
-
-
-	<table>
-
-		<tr>
-			<td>
-				<h3 style="color: red;">잡담</h3><br>
+<body>
+		
+				<h4 style="color: red;">잡담</h4><br>
 			<input type="button"
 				onclick="location.href='List.do?page=1&board_code=1&categorys=1'"
 				class="btn btn-primary" value="후니 자유게시판 이동"><br><br>
@@ -74,7 +28,7 @@
 		<input type="button"
 			onclick="location.href='List.do?page=1&board_code=4&categorys=1'"
 			class="btn btn-primary" value="후니 미드추천 게시판 이동">	<br><br>
-		<h3 style="color: red;">자료공유</h3>
+		<h4 style="color: red;">자료공유</h4>
 		<input type="button"
 			onclick="location.href='List.do?page=1&board_code=5&categorys=1'"
 			class="btn btn-primary" value="영화자료"><br><br>
@@ -88,16 +42,6 @@
 			onclick="location.href='List.do?page=1&board_code=8&categorys=1'"
 			class="btn btn-primary" value="게임자료"><br><br>
 				
-			</td>
-			<td><c:forEach begin="1" step="1" end="30">
-	&nbsp;
-	</c:forEach></td>
-			<td><jsp:include page="newlist.jsp"></jsp:include> <%-- 		<%@include file="newlist.jsp" %>
-		--%></td>
-		</tr>
-	
-
-
-	</table>
+		
 </body>
 </html>

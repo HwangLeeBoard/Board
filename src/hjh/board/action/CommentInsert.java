@@ -1,22 +1,13 @@
 package hjh.board.action;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
-import hjh.board.db.BoardDAO;
-import hjh.board.db.BoardDTO;
 import hjh.board.db.CommentDAO;
 import hjh.board.db.CommentDTO;
-import hjh.board.db.FIleDTO;
-import hjh.board.db.FileDAO;
 import hjh.command.controll.Action;
 import hjh.command.controll.Forward;
 

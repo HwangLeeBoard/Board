@@ -8,9 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.core.ApplicationContext;
-import org.apache.tomcat.util.net.SecureNioChannel.ApplicationBufferHandler;
-
 import hjh.board.db.BoardDAO;
 import hjh.board.db.BoardDTO;
 import hjh.command.controll.Action;
@@ -26,7 +23,7 @@ public class BoardList implements Action {
 		BoardDAO dao = new BoardDAO();
 		ServletContext context = request.getSession().getServletContext();
 		int nowPage = 1;
-		int board_code=0;
+		int board_code=1;
 		if(request.getParameter("board_code")==null){
 			if(context.getAttribute("board_code")==null){
 				response.sendRedirect("index.jsp");
