@@ -10,21 +10,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import kr.kr.kr.MakeConnection;
+
 public class MemberDAO {
 
-	DataSource ds;
-
-	public MemberDAO() {
-		Context ctx;
-		try {
-			ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle11g");
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 	public void closeAll(ResultSet rs, PreparedStatement ps, Connection con) {
 		if (rs != null) {
 			try {
@@ -52,11 +42,13 @@ public class MemberDAO {
 		}
 	}
 
+	
+	
 	public PreparedStatement getSql(Connection con, PreparedStatement ps, String sql) throws SQLException {
 
-		return ds.getConnection().prepareStatement(sql);
+		return MakeConnection.GetConnection().prepareStatement(sql);
 	}
-
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public void join(MemberDTO mDto) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -64,7 +56,8 @@ public class MemberDAO {
 		String sql = "INSERT INTO MEMBER ( IDX,EMAIL,PASSWD,NAME,GENDER,PNUM,IP )"
 				+ "VALUES ( MEMBER_SEQ.nextval, ?, ?, ?,? , ?, ?)";
 		try {
-			ps = getSql(con, ps, sql);
+			con= MakeConnection.GetConnection();
+			ps = con.prepareStatement(sql);
 			ps.setString(1, mDto.getEmail());
 			ps.setString(2, mDto.getPasswd());
 			ps.setString(3, mDto.getName());
@@ -91,8 +84,8 @@ public class MemberDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			con = ds.getConnection();
-			ps = getSql(con, ps, sql);
+			con= MakeConnection.GetConnection();
+			ps = con.prepareStatement(sql);
 			ps.setString(1, email);
 			rs = ps.executeQuery();
 

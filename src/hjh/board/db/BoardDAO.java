@@ -6,23 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import kr.kr.kr.MakeConnection;
 
 public class BoardDAO {
-	DataSource dataFactory;
-
-	public BoardDAO() {
-		Context ctx;
-		try {
-			ctx = new InitialContext();
-			dataFactory = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle11g");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	public ArrayList<Integer> pageSpray(int nowPage ,int board_code) {
 		int endPage = endPage(nowPage,board_code);
@@ -50,7 +37,7 @@ public class BoardDAO {
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A where A.board_code = ? order by A.seq desc, A.step asc ";
 		try {
-			con= dataFactory.getConnection();
+			con= MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_code);
 			rs = pstmt.executeQuery();
@@ -132,7 +119,7 @@ public class BoardDAO {
 		int count = 0;
 		String sql = "SELECT count(idx) as count from board where board_code = ?";
 		try {
-			con= dataFactory.getConnection();
+			con= MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_code);
 			rs = pstmt.executeQuery();
@@ -161,7 +148,7 @@ public class BoardDAO {
 		ResultSet rs = null;
 
 		try {
-			con = dataFactory.getConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, title);
 			pstmt.setString(2, writer);
@@ -192,8 +179,8 @@ public class BoardDAO {
 		sql += "passwd, email, title, content, remote_addr, seq)";
 		sql += " values( idx_seq.nextval , ?, ?, ?, ?, ?, ?, ?, ?,  idx_seq.currval)";
 		try {
-			con= dataFactory.getConnection();
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getBoard_code());
 			pstmt.setInt(2, dto.getCategorys());
 			pstmt.setString(3, dto.getWriter());
@@ -221,7 +208,8 @@ public class BoardDAO {
 		int max = 0;
 		String sql = "SELECT  max(idx) FROM board";
 		try {
-			ps = getCon(con, ps, sql);
+			con= MakeConnection.GetConnection();
+			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				max = rs.getInt(1);
@@ -250,7 +238,8 @@ public class BoardDAO {
 				+ " A.SEQ," + " A.LEVELS," + " A.STEP," + " A.FILECNT," + " A.HITS,"
 				+ " A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
 		try {
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				if (count>=10) {
@@ -305,8 +294,8 @@ public class BoardDAO {
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
 		try {
-			
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int idx = rs.getInt("idx");
@@ -346,7 +335,7 @@ public class BoardDAO {
 	}
 
 	public PreparedStatement getCon(Connection con, PreparedStatement ps, String sql) throws SQLException {
-		con = dataFactory.getConnection();
+		con = MakeConnection.GetConnection();
 		ps = con.prepareStatement(sql);
 		return ps;
 	}
@@ -356,8 +345,9 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		String sql = "delete board where idx = " + selectNum;
 		try {
-			con = dataFactory.getConnection();
-			con.prepareStatement(sql).executeUpdate();
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -403,7 +393,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		String sql = "update board set step = step + 1 where seq = ? and step > ? ";
 		try {
-			con = dataFactory.getConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			pstmt.setInt(2, step);
@@ -421,7 +411,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		String sql = "update board set hits = hits + 1 where idx = ?";
 		try {
-			con = dataFactory.getConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			pstmt.executeUpdate();
@@ -446,7 +436,8 @@ public class BoardDAO {
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A " + "where idx= ? " + " order by A.seq desc, A.step asc";
 		try {
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {

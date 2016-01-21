@@ -6,23 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import kr.kr.kr.MakeConnection;
 
 public class BoardConfigDAO {
-	DataSource dataFactory;
-
-	public BoardConfigDAO() {
-		Context ctx;
-		try {
-			ctx = new InitialContext();
-			dataFactory = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle11g");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	public int count(int num) { 
 		Connection con = null;
@@ -31,7 +18,7 @@ public class BoardConfigDAO {
 		int count = 0;
 		String sql = "SELECT count(idx) as count from board_config where boardnum = ?";
 		try {
-			con= dataFactory.getConnection();
+			con= MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -49,7 +36,7 @@ public class BoardConfigDAO {
 
 	
 	public void insert(BoardConfigDTO dto) {
-		int max=curIdx();
+		//int max=curIdx();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO BOARD_CONFIG ("
@@ -66,8 +53,8 @@ public class BoardConfigDAO {
 				+ "IS_NOTICE )"
 				+" VALUES ( board_config_seq.nextval , ?,  ?, ?,? ,? ,? , ?, ?,? , ? )";
 		try {
-			con= dataFactory.getConnection();
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,dto.getBoard_name() );
 			pstmt.setString(2, dto.getBaord_type());
 			pstmt.setString(3, dto.getUrl());
@@ -92,13 +79,14 @@ public class BoardConfigDAO {
 
 	public int curIdx() {
 		Connection con = null;
-		PreparedStatement ps = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int max = 0;
 		String sql = "SELECT  max(idx) FROM board_config";
 		try {
-			ps = getCon(con, ps, sql);
-			rs = ps.executeQuery();
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				max = rs.getInt(1);
 			}
@@ -107,7 +95,7 @@ public class BoardConfigDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			closeAll(rs, ps, con);
+			closeAll(rs, pstmt, con);
 		}
 
 		return max;
@@ -138,7 +126,8 @@ public class BoardConfigDAO {
 				+ "       A.IS_NOTICE"
 				+ "  FROM BOARD_CONFIG A";
 		try {
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int idx = rs.getInt("idx");
@@ -176,7 +165,7 @@ public class BoardConfigDAO {
 	
 
 	public PreparedStatement getCon(Connection con, PreparedStatement ps, String sql) throws SQLException {
-		con = dataFactory.getConnection();
+		con = MakeConnection.GetConnection();
 		ps = con.prepareStatement(sql);
 		return ps;
 	}
@@ -186,8 +175,9 @@ public class BoardConfigDAO {
 		PreparedStatement pstmt = null;
 		String sql = "delete board where idx = " + selectNum;
 		try {
-			con = dataFactory.getConnection();
-			con.prepareStatement(sql).executeUpdate();
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -248,7 +238,8 @@ public class BoardConfigDAO {
 				+ "from board_config where boardnum=?";
 
 		try {
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {

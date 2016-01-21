@@ -6,26 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import kr.kr.kr.MakeConnection;
 
 public class FileDAO {
-	DataSource ds;
-
-	public FileDAO() {
-		// TODO Auto-generated constructor stub
-		try {
-			Context ctx = new InitialContext();
-			
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle11g");
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	public int insert(FIleDTO fDto) {
 		Connection con = null;
@@ -35,7 +19,7 @@ public class FileDAO {
 		+ "values(file_seq.nextval, ? ,?,?  )";
 		int result = 0;
 		try {
-			con = ds.getConnection();
+			con = MakeConnection.GetConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, fDto.getBoard_idx());
 			ps.setString(2, fDto.getFilename());
@@ -66,7 +50,7 @@ public class FileDAO {
 
 		
 		try {
-			con = ds.getConnection();
+			con = MakeConnection.GetConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, num);
 			

@@ -11,18 +11,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class CommentDAO {
-	DataSource dataFactory;
+import kr.kr.kr.MakeConnection;
 
-	public CommentDAO() {
-		Context ctx;
-		try {
-			ctx = new InitialContext();
-			dataFactory = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle11g");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+public class CommentDAO {
+	
 
 	public int count(int num) { 
 		Connection con = null;
@@ -31,7 +23,7 @@ public class CommentDAO {
 		int count = 0;
 		String sql = "SELECT count(idx) as count from board_comment where boardnum = ?";
 		try {
-			con= dataFactory.getConnection();
+			con= MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -61,8 +53,8 @@ public class CommentDAO {
 		sql += " values( board_comment_seq.nextval , ?, ?, ?,?)";
 
 		try {
-			con= dataFactory.getConnection();
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getWriter());
 			pstmt.setString(2, dto.getContent());
 			pstmt.setInt(3, dto.getBoardnum());
@@ -86,7 +78,8 @@ public class CommentDAO {
 		int max = 0;
 		String sql = "SELECT  max(idx) FROM board";
 		try {
-			ps = getCon(con, ps, sql);
+			con= MakeConnection.GetConnection();
+			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				max = rs.getInt(1);
@@ -114,7 +107,8 @@ public class CommentDAO {
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
 		try {
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int idx = rs.getInt("idx");
@@ -156,7 +150,7 @@ public class CommentDAO {
 	
 
 	public PreparedStatement getCon(Connection con, PreparedStatement ps, String sql) throws SQLException {
-		con = dataFactory.getConnection();
+		con = MakeConnection.GetConnection();
 		ps = con.prepareStatement(sql);
 		return ps;
 	}
@@ -166,8 +160,9 @@ public class CommentDAO {
 		PreparedStatement pstmt = null;
 		String sql = "delete board where idx = " + selectNum;
 		try {
-			con = dataFactory.getConnection();
-			con.prepareStatement(sql).executeUpdate();
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -228,7 +223,8 @@ public class CommentDAO {
 				+ "from board_comment where boardnum=?";
 
 		try {
-			pstmt = getCon(con, pstmt, sql);
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
