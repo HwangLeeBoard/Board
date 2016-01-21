@@ -115,6 +115,13 @@ public class FrontController extends HttpServlet {
 		} else if (path.equals("/CommentInsert.do")) {
 			action = new CommentInsert();
 			forward=action.excute(request, response);
+		}else if (path.equals("/admin/BoardConfigWrite.do")) {
+			forward = new Forward();
+			forward.setDispacher(false);
+			forward.setPath("./board_insert.jsp");
+		}else if (path.equals("/BoardConfigInsert.do")) {
+			action = new BoardConfigInsert();
+			forward=action.excute(request, response);
 		}
 		
 		
