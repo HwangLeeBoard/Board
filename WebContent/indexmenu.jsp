@@ -15,7 +15,7 @@
 	BoardConfigDTO dto = new BoardConfigDTO();
 	BoardConfigDAO dao = new BoardConfigDAO();
 	ArrayList<BoardConfigDTO> array= new ArrayList<BoardConfigDTO>();
-	array = dao.list();
+	//array = dao.list();
 	request.setAttribute("list", array);
 	
 	%>
