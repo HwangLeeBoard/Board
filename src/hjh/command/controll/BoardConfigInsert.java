@@ -19,7 +19,7 @@ public class BoardConfigInsert implements Action {
 		BoardConfigDAO bcDAO = new BoardConfigDAO();
 		int idx =0;	
 		String board_name = request.getParameter("board_name");
-		String board_code =  null;
+		String board_code =  request.getParameter("board_code");
 		String baord_type = null;
 		String url =  null;
 		String is_delete =  null;

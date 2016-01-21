@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import hjh.board.db.BoardConfigDTO;
 import kr.kr.kr.MakeConnection;
 
 public class MemberDAO {
@@ -118,11 +120,11 @@ public class MemberDAO {
 		if (chkDto.getEmail() != null) {
 
 			if (chkDto.getEmail().equals(email) && chkDto.getPasswd().equals(passwd)) {
-				result = 1; // ·Î±×ÀÎ ¼º°ø
+				result = 1; // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			} else if (chkDto.getEmail().equals(email) && !chkDto.getPasswd().equals(passwd)) {
-				result = 2; // ÆÐ½º¿öµå°¡ Æ²¸³´Ï´Ù.
+				result = 2; // ï¿½Ð½ï¿½ï¿½ï¿½ï¿½å°¡ Æ²ï¿½ï¿½ï¿½Ï´ï¿½.
 			} else if (!chkDto.getEmail().equals(email)) {
-				result = 0; // È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù.
+				result = 0; // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 			}
 		}
 		return result;
@@ -137,10 +139,53 @@ public class MemberDAO {
 
 		if (chkDto.getEmail() != null) {
 			if (chkDto.getEmail().equals(email)) {
-				result = 1; // Áßº¹¾ÆÀÌµð
+				result = 1; // ï¿½ßºï¿½ï¿½ï¿½ï¿½Ìµï¿½
 			}
 		}
 		return result;
 
 	}
+	
+	public ArrayList<MemberDTO> list() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
+		String sql = "SELECT A.IDX,"
+				+ "       A.EMAIL,"
+				+ "       A.PASSWD,"
+				+ "       A.NAME,"
+				+ "       A.GENDER,"
+				+ "       A.PNUM,"
+				+ "       to_char(A.JOINDATE,'yyyy-mm-dd') JOINDATE,"
+				+ "       to_char(A.LOGINTIME,'yyyy-mm-dd') LOGINTIME,"
+				+ "       A.IP"
+				+ "  FROM MEMBER A";
+		try {
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int idx = rs.getInt("idx");
+				String email = rs.getString("email");
+				String passwd = rs.getString("passwd");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				String pnum = rs.getString("pnum");
+				String joindate = rs.getString("joindate");
+				String logintime = rs.getString("logintime");
+				String ip = rs.getString("ip");
+				MemberDTO mDto = new MemberDTO(idx, email, passwd, name, gender, pnum, joindate, logintime, ip);
+				list.add(mDto);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
+	}
+	
 }
