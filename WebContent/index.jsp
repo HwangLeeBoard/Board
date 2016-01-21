@@ -50,45 +50,14 @@
 	<%
 		}
 		String block = "&nbsp;";
+		
 	%>
 
 
 
 	<table>
+		<jsp:include page="indexmenu.jsp"  >
 
-		<tr>
-			<td>
-				<h3 style="color: red;">잡담</h3><br>
-			<input type="button"
-				onclick="location.href='List.do?page=1&board_code=1&categorys=1'"
-				class="btn btn-primary" value="후니 자유게시판 이동"><br><br>
-		
-		<input type="button"
-			onclick="location.href='List.do?page=1&board_code=2&categorys=1'"
-			class="btn btn-primary" value="후니 유머게시판 이동"><br><br>
-	
-		<input type="button"
-			onclick="location.href='List.do?page=1&board_code=3&categorys=1'"
-			class="btn btn-primary" value="후니 소설추천 게시판 이동"><br><br>
-	
-		<input type="button"
-			onclick="location.href='List.do?page=1&board_code=4&categorys=1'"
-			class="btn btn-primary" value="후니 미드추천 게시판 이동">	<br><br>
-		<h3 style="color: red;">자료공유</h3>
-		<input type="button"
-			onclick="location.href='List.do?page=1&board_code=5&categorys=1'"
-			class="btn btn-primary" value="영화자료"><br><br>
-		<input type="button"
-			onclick="location.href='List.do?page=1&board_code=6&categorys=1'"
-			class="btn btn-primary" value="드라마자료"><br><br>
-		<input type="button"
-			onclick="location.href='List.do?page=1&board_code=7&categorys=1'"
-			class="btn btn-primary" value="유틸자료"><br><br>
-		<input type="button"
-			onclick="location.href='List.do?page=1&board_code=8&categorys=1'"
-			class="btn btn-primary" value="게임자료"><br><br>
-				
-			</td>
 			<td><c:forEach begin="1" step="1" end="30">
 	&nbsp;
 	</c:forEach></td>

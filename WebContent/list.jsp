@@ -24,7 +24,7 @@ if (sess.getAttribute("mem")==null){ %>
 <table class="table">
 <tr>
 <td width="40" rowspan="11">
-		<jsp:include page="listmenu.jsp"></jsp:include></td>
+		<jsp:include page="indexmenu.jsp"></jsp:include></td>
 <th>번호</th>
 <th>제목</th>
 <th>작성자</th>
