@@ -24,7 +24,7 @@ public class BoardView implements Action {
 		BoardDAO bDao = new BoardDAO();
 		BoardDTO bDto = new BoardDTO();
 		Forward forward = new Forward();
-		ArrayList<FIleDTO> list = new ArrayList();
+		ArrayList<FIleDTO> list = new ArrayList<FIleDTO>();
 		FileDAO fDao = new FileDAO();
 		CommentDAO cDao = new CommentDAO();
 		int num = Integer.parseInt(request.getParameter("num"));

@@ -241,17 +241,21 @@ public class BoardDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int count=0;
 		ArrayList<BoardDTO> dto = new ArrayList<BoardDTO>();
-		String sql = "SELECT A.IDX, " + "A.BOARD_CODE," + "    A.CATEGORYS," + "       A.TITLE," + "       A.WRITER,"
-				+ "       A.PASSWD," + "       A.EMAIL," + "       A.CONTENT," + "       A.REMOTE_ADDR,"
-				+ "       to_char(A.DATE_TIME,'yyyy-mm-dd') DATE_TIME, " + "       A.IS_NOTICE,"
-				+ "       A.likecnt,A.badcnt," + "       A.IS_COMMENT," + "       A.IS_REPLY," + "       A.IS_PRIVATE,"
-				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
-				+ "       A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
+		String sql = "SELECT A.IDX, " + "A.BOARD_CODE," + " A.CATEGORYS," + " A.TITLE," + " A.WRITER,"
+				+ " A.PASSWD," + " A.EMAIL," + " A.CONTENT," + " A.REMOTE_ADDR,"
+				+ " to_char(A.DATE_TIME,'yyyy-mm-dd') DATE_TIME, " + " A.IS_NOTICE,"
+				+ " A.likecnt,A.badcnt," + " A.IS_COMMENT," + " A.IS_REPLY," + " A.IS_PRIVATE,"
+				+ " A.SEQ," + " A.LEVELS," + " A.STEP," + " A.FILECNT," + " A.HITS,"
+				+ " A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
 		try {
 			pstmt = getCon(con, pstmt, sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
+				if (count>=10) {
+					break;
+				}
 				int idx = rs.getInt("idx");
 				int board_code = rs.getInt("board_code");
 				int categorys = rs.getInt("categorys");
@@ -277,6 +281,7 @@ public class BoardDAO {
 				dto.add(new BoardDTO(idx, board_code, categorys, title, writer, passwd, email, content, remote_addr,
 						dateTime, is_notice, likecnt, badcnt, is_comment, is_reply, is_private, seq, levels, step,
 						fileCnt, hits, member_seq));
+				count++;
 
 			}
 		} catch (SQLException e) {

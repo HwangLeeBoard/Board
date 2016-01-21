@@ -23,6 +23,8 @@ if (sess.getAttribute("mem")==null){ %>
 <%} %>
 <table class="table">
 <tr>
+<td width="40" rowspan="11">
+		<jsp:include page="listmenu.jsp"></jsp:include></td>
 <th>번호</th>
 <th>제목</th>
 <th>작성자</th>
@@ -37,6 +39,7 @@ if (sess.getAttribute("mem")==null){ %>
 </tr>
 </c:forEach>
 </table>
+<center>
 <c:if test="${page ne 1 }">
 <a href="List.do?page=${page-1 }">[이전]</a>
 </c:if>
@@ -53,23 +56,12 @@ ${spray }
 </c:if>
 <br>
 현재 페이지 ${page }
-<hr>
-<%
-/*int board_code=0;
-if(request.getParameter("board_code")==null){
-	if(application.getAttribute("board_code")==null){
-		response.sendRedirect("index.jsp");
-	}else{
-	board_code= Integer.parseInt(application.getAttribute("board_code").toString());			
-	}
-}else{
-board_code=Integer.parseInt(request.getParameter("board_code"));	
-}
-application.setAttribute("board_code", board_code);*/
-%>
-<input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='Write.do?board_code=${board_code}&categorys=1'">
-<input type="button" value="main" class="btn btn-primary" onclick="location.href='index.do'">
 
+<hr>
+
+<input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='Write.do?board_code=${board_code}&categorys=1'">
+</center>
+<input type="button" value="main" class="btn btn-primary" onclick="location.href='index.do'">
 
 </body>
 </html>
