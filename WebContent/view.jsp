@@ -11,19 +11,37 @@
 <script src="js/bootstrap.js"></script>
 <link type="text/css" rel="stylesheet" href="css/bootstrap.css" charset="utf-8">
 <title>게시판</title>
+<style type="text/css">
+.viewbox{
+padding:20px;
+border: 1px solid #e5e5e5;
+margin-bottom:10px
+}
+.title{
+font-size:15px;
+font-weight: bold;
+
+}
+.content{
+font-size:15px;
+
+}
+</style>
 </head>
 <body style="padding:30px">
-
-	${BoardDto.title }
+<div class="viewbox">
+	<span class="title" >${BoardDto.title }</span>
+	<div style="border-bottom: 4px dotted #e5e5e5;padding:5px"></div>
 	<br> ${BoardDto.content }
-	<br> ${BoardDto.idx }
-	<br>
-	<c:forEach items="${Filelist }" var="f">
-		<a href="FileDown.do?filename=${f.filename }">${f.filename }</a>
-		<br>
-		<img src="file1/${f.filename }" width="150">
-	</c:forEach>
+	
 	<br><br>
+		파일 :
+	<c:forEach items="${Filelist }" var="f">
+	 <a href="FileDown.do?filename=${f.filename }">${f.filename }</a> 
+		<br>
+		<!-- <img src="file1/${f.filename }" width="150"> -->
+	</c:forEach>
+</div>
 	<input type="button"
 		onclick="location.href='ReplyView.do?idx=${BoardDto.idx}'"  class="btn btn-primary" value="답변">
 	<input type="button"
@@ -32,6 +50,9 @@
 		onclick="location.href='Delete.do?idx=${BoardDto.idx}'" class="btn btn-primary" value="삭제">
 	<input type="button" onclick="location.href='List.do?board_code=${board_code}'" class="btn btn-primary" value="리스트">
 	<br>
+	
+	
+	
 	<%@include file="comment.jsp" %>
 	
 </body>
