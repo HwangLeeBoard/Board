@@ -1,4 +1,4 @@
-package hjh.command.controll;
+package hjh.board.action;
 
 import java.io.IOException;
 
@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import hjh.board.db.BoardConfigDAO;
 import hjh.board.db.BoardConfigDTO;
+import hjh.command.controll.Action;
+import hjh.command.controll.Forward;
 
 public class BoardConfigInsert implements Action {
 

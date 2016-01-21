@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import kr.kr.kr.MakeConnection;
 
 public class BoardDAO {
-	
 
-	public ArrayList<Integer> pageSpray(int nowPage ,int board_code) {
-		int endPage = endPage(nowPage,board_code);
-		int startPage= startPage(nowPage);
+	public ArrayList<Integer> pageSpray(int nowPage, int board_code) {
+		int endPage = endPage(nowPage, board_code);
+		int startPage = startPage(nowPage);
 		ArrayList<Integer> array = new ArrayList<Integer>();
 		for (int i = startPage; i <= endPage; i++) {
 			array.add(i);
@@ -21,7 +20,7 @@ public class BoardDAO {
 		return array;
 	}
 
-	public ArrayList<BoardDTO> list2(int nowPage,int board_code) {
+	public ArrayList<BoardDTO> list2(int nowPage, int board_code) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -37,7 +36,7 @@ public class BoardDAO {
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A where A.board_code = ? order by A.seq desc, A.step asc ";
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_code);
 			rs = pstmt.executeQuery();
@@ -80,46 +79,50 @@ public class BoardDAO {
 		return dto;
 	}
 
-	public int endPage(int nowPage,int board_code) { // return:º¸¿©ÁÙ ¸¶Áö¸·ÆäÀÌÁö input:ÇöÀçÆäÀÌÁö
-		final int BLOCK = 10; // ¹Ø¿¡ ÆäÀÌÁö Ç¥±â¼ö
+	public int endPage(int nowPage, int board_code) { // return:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+														// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+														// input:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		final int BLOCK = 10; // ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½
 		int endPage = 0;
 		if (pageCount(board_code) / BLOCK > (nowPage - 1) / BLOCK) {
 			endPage = startPage(nowPage) - 1 + BLOCK;
 		} else {
-			endPage = (startPage(nowPage)+(pageCount(board_code) % BLOCK))-1;
+			endPage = (startPage(nowPage) + (pageCount(board_code) % BLOCK)) - 1;
 		}
 		return endPage;
 	}
 
-	public int startPage(int nowPage) { // return:½ÃÀÛÆäÀÌÁö input:ÇöÀçÆäÀÌÁö ;;;board_code
-		final int BLOCK = 10; // ¹Ø¿¡ ÆäÀÌÁö Ç¥±â¼ö
+	public int startPage(int nowPage) { // return:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ input:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										// ;;;board_code
+		final int BLOCK = 10; // ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½
 		int startPage = 0;
 		startPage = ((nowPage - 1) / BLOCK) * BLOCK + 1;
 		return startPage;
 	}
 
-	public int pageCount(int board_code) { //°°Àº board_code¸îÆäÀÌÁö ³ª¿Ã°ÍÀÎÁö ÆÇ´ÜÇÏ¿© ¹ÝÈ¯
+	public int pageCount(int board_code) { // ï¿½ï¿½ï¿½ï¿½ board_codeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½
+											// ï¿½Ç´ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È¯
 		int count = 0;
-		int i=0;
+		int i = 0;
 		count = count(board_code);
-		final int PAGE_NUM = 10; // ÇÑÆäÀÌÁö¿¡ Ç¥½ÃµÇ´Â ±ÛÀÇ ¼ö
+		final int PAGE_NUM = 10; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ÃµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		if (count % PAGE_NUM != 0) {
 			i++;
 		}
 		count /= PAGE_NUM;
-		count+=i;
-	
+		count += i;
+
 		return count;
 	}
 
-	public int count(int board_code) { // ¹ÝÈ¯°ª :board_code °¡ °°Àº ±ÛÀÇ ¼ö
+	public int count(int board_code) { // ï¿½ï¿½È¯ï¿½ï¿½ :board_code ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int count = 0;
 		String sql = "SELECT count(idx) as count from board where board_code = ?";
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_code);
 			rs = pstmt.executeQuery();
@@ -179,7 +182,7 @@ public class BoardDAO {
 		sql += "passwd, email, title, content, remote_addr, seq)";
 		sql += " values( idx_seq.nextval , ?, ?, ?, ?, ?, ?, ?, ?,  idx_seq.currval)";
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getBoard_code());
 			pstmt.setInt(2, dto.getCategorys());
@@ -198,8 +201,6 @@ public class BoardDAO {
 		}
 
 	}
-	
-
 
 	public int curIdx() {
 		Connection con = null;
@@ -208,7 +209,7 @@ public class BoardDAO {
 		int max = 0;
 		String sql = "SELECT  max(idx) FROM board";
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -218,7 +219,7 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeAll(rs, ps, con);
 		}
 
@@ -229,20 +230,19 @@ public class BoardDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int count=0;
+		int count = 0;
 		ArrayList<BoardDTO> dto = new ArrayList<BoardDTO>();
-		String sql = "SELECT A.IDX, " + "A.BOARD_CODE," + " A.CATEGORYS," + " A.TITLE," + " A.WRITER,"
-				+ " A.PASSWD," + " A.EMAIL," + " A.CONTENT," + " A.REMOTE_ADDR,"
-				+ " to_char(A.DATE_TIME,'yyyy-mm-dd') DATE_TIME, " + " A.IS_NOTICE,"
-				+ " A.likecnt,A.badcnt," + " A.IS_COMMENT," + " A.IS_REPLY," + " A.IS_PRIVATE,"
+		String sql = "SELECT A.IDX, " + "A.BOARD_CODE," + " A.CATEGORYS," + " A.TITLE," + " A.WRITER," + " A.PASSWD,"
+				+ " A.EMAIL," + " A.CONTENT," + " A.REMOTE_ADDR," + " to_char(A.DATE_TIME,'yyyy-mm-dd') DATE_TIME, "
+				+ " A.IS_NOTICE," + " A.likecnt,A.badcnt," + " A.IS_COMMENT," + " A.IS_REPLY," + " A.IS_PRIVATE,"
 				+ " A.SEQ," + " A.LEVELS," + " A.STEP," + " A.FILECNT," + " A.HITS,"
 				+ " A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				if (count>=10) {
+				if (count >= 10) {
 					break;
 				}
 				int idx = rs.getInt("idx");
@@ -294,7 +294,7 @@ public class BoardDAO {
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A order by A.seq desc, A.step asc";
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -345,17 +345,41 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		String sql = "delete board where idx = " + selectNum;
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
-			
+		} finally {
+
+			closeAll(null, pstmt, con);
+		}
+	}
+	
+	public void isLike(int idx, String like) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql="";
+		if (like.equals("Y")) {
+			sql = "update board set likecnt = likecnt+1 where idx = " + idx;
+		}else if (like.equals("N")) {
+			sql = "update board set badcnt = badcnt+1 where idx = " + idx;
+		}
 		
-		closeAll(null, pstmt, con);
-	}}
+		try {
+			con = MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			closeAll(null, pstmt, con);
+		}
+	}
+	
 
 	public void closeAll(ResultSet rs, PreparedStatement pstmt, Connection con) {
 		if (rs != null) {
@@ -436,7 +460,7 @@ public class BoardDAO {
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A " + "where idx= ? " + " order by A.seq desc, A.step asc";
 		try {
-			con= MakeConnection.GetConnection();
+			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();

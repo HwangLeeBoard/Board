@@ -49,6 +49,9 @@ font-size:15px;
 	<input type="button"
 		onclick="location.href='Delete.do?idx=${BoardDto.idx}'" class="btn btn-primary" value="삭제">
 	<input type="button" onclick="location.href='List.do?board_code=${board_code}'" class="btn btn-primary" value="리스트">
+	
+	<input type="button" onclick="location.href='IsLike.do?idx=${BoardDto.idx}&like=Y'" class="btn btn-primary" value="좋아요">
+	<input type="button" onclick="location.href='IsLike.do?idx=${BoardDto.idx}&like=N'" class="btn btn-primary" value="싫어요">
 	<br>
 	
 	

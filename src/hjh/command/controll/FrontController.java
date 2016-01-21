@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import hjh.board.action.BoardConfigInsert;
 import hjh.board.action.BoardInsert;
 import hjh.board.action.BoardList;
 import hjh.board.action.BoardView;
 import hjh.board.action.CommentInsert;
+import hjh.board.action.IsLike;
+import hjh.member.action.AdminLogin;
 import hjh.member.action.MemberJoin;
 import hjh.member.action.MemberLogin;
 import hjh.member.action.MemberLoginTest;
@@ -122,8 +125,13 @@ public class FrontController extends HttpServlet {
 		}else if (path.equals("/BoardConfigInsert.do")) {
 			action = new BoardConfigInsert();
 			forward=action.excute(request, response);
+		}else if (path.equals("/Admin.do")) {
+			action = new AdminLogin();
+			forward=action.excute(request, response);
+		}else if (path.equals("/IsLike.do")) {
+			action = new IsLike();
+			forward=action.excute(request, response);
 		}
-		
 		
 		if (forward != null) {
 			if (forward.isDispacher() == false) {
