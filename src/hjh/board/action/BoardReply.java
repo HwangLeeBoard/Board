@@ -26,7 +26,7 @@ public class BoardReply implements Action {
 			throws IOException, ServletException {
 		BoardDAO bDao = new BoardDAO();
 		Forward forward = new Forward();
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("idx"));
 
 		// int page = Integer.parseInt(multi.getParameter("page"));
 		int board_code = Integer.parseInt(request.getParameter("board_code"));
@@ -55,10 +55,10 @@ public class BoardReply implements Action {
 				is_notice, likecnt, badcnt, is_comment, is_reply, is_private, seq, levels, step, fileCnt, hits,
 				member_seq);
 		bDao.insert(bDto);
-		//request.setAttribute("BoardDto", bDto);
-		forward.setPath("ReplyView.do?board_code=" + board_code + "&page=" + page + "&seq=" + seq);
+		// request.setAttribute("BoardDto", bDto);
+		int meidx=bDao.curIdx();
+		forward.setPath("View.do?board_code=" + board_code + "&page=" + page + "&seq=" + seq + "&idx=" + meidx);
 		forward.setDispacher(false);
 		return forward;
 	}
-
 }

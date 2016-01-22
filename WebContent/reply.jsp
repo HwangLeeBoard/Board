@@ -12,16 +12,19 @@
 <title>게시판</title>
 </head>
 <body style="padding:30px;">
+<%
+String papge= request.getParameter("page");
 
+%>
 <form action="BoardReply.do" method="post" >
 <input type="hidden" name="id" value="${mem.id }">
 <input type="hidden" name="board_code" value="${BoardDto.board_code }">
-<input type="hidden" name="page" value="${page }">
+<input type="hidden" name="page" value="<%=papge%>">
 <input type="hidden" name="categorys" value="${categorys }">
 <input type = "hidden" name="repRoot" value="${BoardDto.seq }">
 <input type = "hidden" name="repStep" value="${BoardDto.step }">
 <input type = "hidden" name="repIndent" value="${BoardDto.levels }">
-<input type = "hidden" name="num" value="${BoardDto.idx }">
+<input type = "hidden" name="idx" value="${BoardDto.idx }">
 
 	<div class="form-group">
    	 	<label for="exampleInputEmail1">작성자</label>

@@ -27,7 +27,8 @@ public class BoardView implements Action {
 		ArrayList<FIleDTO> list = new ArrayList<FIleDTO>();
 		FileDAO fDao = new FileDAO();
 		CommentDAO cDao = new CommentDAO();
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("idx"));
+		
 		ArrayList<CommentDTO> clist= cDao.getCommentList(num);
 		System.out.println(clist);
 		bDto = bDao.getDto(num);

@@ -35,6 +35,8 @@ public class BoardReplyView implements Action {
 		request.setAttribute("BoardDto", bDto);
 		request.setAttribute("Filelist", list);
 		request.setAttribute("clist", clist);
+		String board_code= request.getParameter("board_code");
+		request.setAttribute("board_code", board_code);
 		forward.setDispacher(true);
 		forward.setPath("reply.jsp");
 		return forward;
