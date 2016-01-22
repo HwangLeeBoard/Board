@@ -21,6 +21,11 @@
 
 	<form action="CommentInsert.do" method="post" style="border:1px solid #c7c7c7;padding:10px">
 	<input type="hidden" name="num" value="${BoardDto.idx }">
+
+<input type="hidden" name="board_code" value="${board_code }">
+<input type="hidden" name="page" value="${page }">
+<input type="hidden" name="categorys" value="${categorys }">
+	
 			작성자<input
 			
 			type="text" name="cWriter" value="" class="form-control"> <br>

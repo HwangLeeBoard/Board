@@ -1,3 +1,4 @@
+<%@page import="hjh.board.db.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -39,6 +40,7 @@ if (sess.getAttribute("mem")==null){ %>
 <th>싫어요</th>
 <th>등록일</th>
 </tr>
+
 <c:forEach items="${listDTO }" var="list">
 <tr>
 <td>${list.idx }</td>
@@ -46,11 +48,25 @@ if (sess.getAttribute("mem")==null){ %>
 
 <c:forEach begin="1" end="${list.levels}">
 <%="&nbsp;&nbsp;&nbsp;&nbsp;"%>
+
 </c:forEach>
 <c:if test="${list.step>0 }">
 	<img src="img/re.gif">
 </c:if>
-<a href="View.do?idx=${list.idx }&board_code=${board_code}&page=${page}">${list.title }</a></td>
+<a href="View.do?idx=${list.idx }&board_code=${board_code}&page=${page}">${list.title }</a> 
+	<c:choose>
+		<c:when test="${list.is_comment eq 0 }">
+		
+		</c:when>
+		<c:otherwise>
+			(${list.is_comment })
+		</c:otherwise>
+	</c:choose>
+
+ <c:if test="${list.is_comment ne 0 } ">
+ (${list.is_comment })
+ </c:if>
+ </td>
 <td align="center">${list.writer }</td>
 <td align="center">${list.likecnt }</td>
 <td align="center">${list.badcnt }</td>

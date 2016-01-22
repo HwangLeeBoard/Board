@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.crypto.provider.RSACipher;
+
 import kr.kr.kr.MakeConnection;
 
 public class BoardDAO {
@@ -57,7 +59,7 @@ public class BoardDAO {
 					String is_notice = rs.getString("is_notice");
 					int likecnt = rs.getInt("likecnt");
 					int badcnt = rs.getInt("badcnt");
-					String is_comment = rs.getString("is_comment");
+					String is_comment = comment_cnt(rs.getInt("idx"))+"";
 					String is_reply = rs.getString("is_reply");
 					String is_private = rs.getString("is_private");
 					int seq = rs.getInt("seq");
@@ -498,6 +500,35 @@ public class BoardDAO {
 		}
 		return dto;
 	}
+	
+
+	public int comment_cnt(int idx) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int cnt=0;
+		String sql = "select COUNT(BOARD_COMMENT.BOARDNUM) comment_cnt  FROM "
+				+ "	Board,BOARD_COMMENT"
+				+ "	WHERE Board.idx = BOARD_COMMENT.BOARDNUM"
+				+ "	AND Board.idx=?";
+		try {
+			con = MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs=pstmt.executeQuery();
+			while (rs.next()) {
+				cnt= rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+
+		return cnt;
+	}
+	
 
 	public void update(BoardDTO bDto) {
 		Connection con = null;

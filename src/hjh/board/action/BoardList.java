@@ -50,7 +50,6 @@ public class BoardList implements Action {
 //		if (null!=request.getParameter("board_code")) {
 //			board_code=Integer.parseInt(request.getParameter("board_code"));			
 //		}
-		
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("sprayPage", sprayPage);
 		request.setAttribute("listDTO", list);
