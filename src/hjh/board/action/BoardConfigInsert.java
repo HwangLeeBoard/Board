@@ -38,7 +38,7 @@ public class BoardConfigInsert implements Action {
 		String is_lock =  request.getParameter("is_lock");
 		String is_notice = request.getParameter("is_notice");
 		bcDTO = new BoardConfigDTO(idx, board_name, board_code, baord_type, url, is_delete, create_time, update_time, is_open, is_reply, is_comment, editer, is_file, file_cnt, is_readonly, is_viewcnt, is_lock, is_notice);
-System.out.println(bcDTO);
+
 		bcDAO.insert(bcDTO);
 		forward.setDispacher(false);
 		forward.setPath("./admin/index.jsp");
