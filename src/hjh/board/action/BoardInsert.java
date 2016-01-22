@@ -68,7 +68,6 @@ public class BoardInsert implements Action {
 		
 		bDao.insert(bDto);
 		int boardnum = bDao.curIdx();
-		System.out.println(bDao);
 		
 		int filesize;
 		try {

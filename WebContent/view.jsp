@@ -42,8 +42,12 @@ font-size:15px;
 		<!-- <img src="file1/${f.filename }" width="150"> -->
 	</c:forEach>
 </div>
+<%
+int nowPage= Integer.parseInt(request.getParameter("page"));
+request.setAttribute("page", nowPage);
+%>
 	<input type="button"
-		onclick="location.href='ReplyView.do?idx=${BoardDto.idx}'"  class="btn btn-primary" value="답변">
+		onclick="location.href='ReplyView.do?idx=${BoardDto.idx}&page=${page }'"  class="btn btn-primary" value="답변">
 	<input type="button"
 		onclick="location.href='UpdateView.do?idx=${BoardDto.idx}'" class="btn btn-primary" value="수정">
 	<input type="button"

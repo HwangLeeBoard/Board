@@ -17,7 +17,6 @@ public class MakeConnection {
 		try {
 			ctx = new InitialContext();
 			dataFactory = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle11g");
-			System.out.println(dataFactory);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

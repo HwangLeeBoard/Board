@@ -21,6 +21,7 @@
 <input type = "hidden" name="repRoot" value="${BoardDto.seq }">
 <input type = "hidden" name="repStep" value="${BoardDto.step }">
 <input type = "hidden" name="repIndent" value="${BoardDto.levels }">
+<input type = "hidden" name="num" value="${BoardDto.idx }">
 
 	<div class="form-group">
    	 	<label for="exampleInputEmail1">작성자</label>
