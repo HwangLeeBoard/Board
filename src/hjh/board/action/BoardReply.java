@@ -40,7 +40,7 @@ public class BoardReply implements Action {
 		int hits = 0;
 		int step = Integer.parseInt(request.getParameter("step"));;
 		int levels = Integer.parseInt(request.getParameter("levels"));;
-		int seq = Integer.parseInt(request.getParameter("idx"));
+		int seq = Integer.parseInt(request.getParameter("seq"));
 		int member_seq = 0;
 		int page = Integer.parseInt(request.getParameter("page"));
 		BoardDTO bDto = new BoardDTO(0, board_code, 0, title, writer, passwd, email, content, remote_addr, dateTime,
