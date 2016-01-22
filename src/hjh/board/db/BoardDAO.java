@@ -509,7 +509,7 @@ public class BoardDAO {
 				+ "REMOTE_ADDR = ?, "
 				+ "IS_NOTICE = ? "
 				+ "WHERE idx=?";
-		System.out.println(sql);
+		
 		try {
 			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);

@@ -21,8 +21,8 @@ if(session.getAttribute("mm")==null){
 %>
 
 <frameset rows="94,*" cols="*" framespacing="0" frameborder="no" border="0">
-  <frame src="./admin/main_top.jsp" name="top" frameborder="no" scrolling="no" id="top">
-  <frame src="./admin/board_admin.jsp" name="body_frame" frameborder="no" id="mainframe">
+  <frame src="../admin/main_top.jsp" name="top" frameborder="no" scrolling="no" id="top">
+  <frame src="../admin/board_admin.jsp" name="body_frame" frameborder="no" id="mainframe">
  </frameset>
  
  

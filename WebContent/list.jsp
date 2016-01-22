@@ -43,9 +43,7 @@ if (sess.getAttribute("mem")==null){ %>
 <tr>
 <td>${list.idx }</td>
 <td>
-step ${list.step}
-levels ${list.levels}
-seq ${list.seq}
+
 <c:forEach begin="1" end="${list.levels}">
 <%="&nbsp;&nbsp;&nbsp;&nbsp;"%>
 </c:forEach>
@@ -53,10 +51,10 @@ seq ${list.seq}
 	<img src="img/re.gif">
 </c:if>
 <a href="View.do?idx=${list.idx }&board_code=${board_code}&page=${page}">${list.title }</a></td>
-<td>${list.writer }</td>
-<td>${list.likecnt }</td>
-<td>${list.badcnt }</td>
-<td>${list.dateTime }</td>
+<td align="center">${list.writer }</td>
+<td align="center">${list.likecnt }</td>
+<td align="center">${list.badcnt }</td>
+<td align="center">${list.dateTime }</td>
 </tr>
 </c:forEach>
 </table>

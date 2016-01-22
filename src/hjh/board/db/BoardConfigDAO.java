@@ -39,8 +39,10 @@ public class BoardConfigDAO {
 		//int max=curIdx();
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		System.out.println(dto);
 		String sql = "INSERT INTO BOARD_CONFIG ("
 				+ "IDX, "
+				+ "BOARD_CODE, "
 				+ "BOARD_NAME, "
 				+ "BAORD_TYPE, "
 				+ "URL, "
@@ -51,20 +53,21 @@ public class BoardConfigDAO {
 				+ "IS_VIEWCNT, "
 				+ "IS_LOCK, "
 				+ "IS_NOTICE )"
-				+" VALUES ( board_config_seq.nextval , ?,  ?, ?,? ,? ,? , ?, ?,? , ? )";
+				+" VALUES ( board_config_seq.nextval , ?,?,  ?, ?,? ,? ,? , ?, ?,? , ? )";
 		try {
 			con= MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,dto.getBoard_name() );
-			pstmt.setString(2, dto.getBaord_type());
-			pstmt.setString(3, dto.getUrl());
-			pstmt.setInt(4, dto.getEditer());
-			pstmt.setString(5, dto.getIs_file());
-			pstmt.setInt(6, dto.getFile_cnt());
-			pstmt.setString(7, dto.getIs_readonly());
-			pstmt.setString(8, dto.getIs_viewcnt());
-			pstmt.setString(9, dto.getIs_lock());
-			pstmt.setString(10, dto.getIs_notice());
+			pstmt.setString(1,dto.getBoard_code() );
+			pstmt.setString(2,dto.getBoard_name() );
+			pstmt.setString(3, dto.getBaord_type());
+			pstmt.setString(4, dto.getUrl());
+			pstmt.setInt(5, dto.getEditer());
+			pstmt.setString(6, dto.getIs_file());
+			pstmt.setInt(7, dto.getFile_cnt());
+			pstmt.setString(8, dto.getIs_readonly());
+			pstmt.setString(9, dto.getIs_viewcnt());
+			pstmt.setString(10, dto.getIs_lock());
+			pstmt.setString(11, dto.getIs_notice());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -162,6 +165,62 @@ public class BoardConfigDAO {
 		return list;
 	}
 
+	public BoardConfigDTO getDTO(String board_code) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardConfigDTO dto = new BoardConfigDTO();
+		String sql = "SELECT A.IDX,"
+				+ "       A.BOARD_NAME,"
+				+ "       A.BOARD_CODE,"
+				+ "       A.BAORD_TYPE,"
+				+ "       A.URL,"
+				+ "       A.IS_DELETE,"
+				+ "       to_char(A.CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,"
+				+ "       to_char(A.UPDATE_TIME,'yyyy-mm-dd') UPDATE_TIME,"
+				+ "       A.IS_OPEN,"
+				+ "       A.IS_REPLY,"
+				+ "       A.IS_COMMENT,"
+				+ "       A.EDITER,"
+				+ "       A.IS_FILE,"
+				+ "       A.FILE_CNT,"
+				+ "       A.IS_READONLY,"
+				+ "       A.IS_VIEWCNT,"
+				+ "       A.IS_LOCK,"
+				+ "       A.IS_NOTICE"
+				+ "  FROM BOARD_CONFIG A where board_code="+board_code ;
+		try {
+			con= MakeConnection.GetConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int idx = rs.getInt("idx");
+				String board_name = rs.getString("board_name");
+				String baord_type = rs.getString("baord_type");
+				String url =  rs.getString("url");
+				String is_delete =  rs.getString("is_delete");
+				String create_time =  rs.getString("create_time");
+				String update_time = rs.getString("update_time");
+				String is_open =  rs.getString("is_open");
+				String is_reply =  rs.getString("is_reply");
+				String is_comment =  rs.getString("is_comment");
+				int editer =  rs.getInt("editer");
+				String is_file = rs.getString("is_file");
+				int file_cnt = rs.getInt("file_cnt");
+				String is_readonly = rs.getString("is_readonly");
+				String is_viewcnt =  rs.getString("is_viewcnt");
+				String is_lock = rs.getString("is_lock");
+				String is_notice = rs.getString("is_notice");
+				dto = new BoardConfigDTO(idx, board_name, board_code, baord_type, url, is_delete, create_time, update_time, is_open, is_reply, is_comment, editer, is_file, file_cnt, is_readonly, is_viewcnt, is_lock, is_notice);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return dto;
+	}
 	
 
 	public PreparedStatement getCon(Connection con, PreparedStatement ps, String sql) throws SQLException {

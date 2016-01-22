@@ -1,18 +1,18 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="hjh.board.db.BoardConfigDTO"%>
 <%@page import="hjh.board.db.BoardConfigDAO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="../js/bootstrap.js"></script>
 <link type="text/css" rel="stylesheet" href="../css/bootstrap.css"
 	charset="euc-kr">
-<title>ÈÄ´ÏÈÄ´Ï</title>
+<title>í›„ë‹ˆí›„ë‹ˆ</title>
 <body>
 <body style="padding:30px;">
 <%
@@ -26,11 +26,11 @@
 <form action="../BoardConfigInsert.do" method="post"  >
 
 	<div class="form-group">
-   	 	<label>Å×ÀÌºí¸í</label>
+   	 	<label>í…Œì´ë¸”ëª…</label>
 		<input type="text" name="board_name" class="form-control" value="">
   	</div>
   	<div class="form-group">
-   	 	<label>Å×ÀÌºí ÄÚµå</label><br>
+   	 	<label>í…Œì´ë¸” ì½”ë“œ</label><br>
    	 	<c:forEach var="x" items="${list }" varStatus="s">
 		${x.board_name }:  <span style="font-weight:bold">${x.board_code }</span>&nbsp;&nbsp;&nbsp;&nbsp;
 		</c:forEach>
@@ -38,12 +38,12 @@
 		
   	</div>
   	<div class="form-group">
-   	 	<label>ÆÄÀÏ¾÷·Îµå</label>
+   	 	<label>íŒŒì¼ì—…ë¡œë“œ</label>
 		<input type="radio" name="is_file" value="Y" checked="checked"> Y 
 		<input type="radio" name="is_file" value="N"> N
   	</div>
   	<div class="form-group">
-   	 	<label>ÆÄÀÏ°¹¼ö</label>
+   	 	<label>íŒŒì¼ê°¯ìˆ˜</label>
 		<select name="file_cnt">
 		<c:forEach var="x" begin="1" end="10" varStatus="s">
 		<option value="${s.index-1 }" >1</option>
@@ -51,27 +51,27 @@
 		</select>
   	</div>
   	<div class="form-group">
-   	 	<label>ÀÐ±âÀü¿ë</label>
+   	 	<label>ì½ê¸°ì „ìš©</label>
 		<input type="radio" name="is_readonly" value="Y" checked="checked"> Y 
 		<input type="radio" name="is_readonly" value="N"> N
   	</div>
   	<div class="form-group">
-   	 	<label>Ä«¿îÆ®º¸±â</label>
+   	 	<label>ì¹´ìš´íŠ¸ë³´ê¸°</label>
 		<input type="radio" name="is_viewcnt" value="Y" checked="checked"> Y 
 		<input type="radio" name="is_viewcnt" value="N"> N
   	</div>
   	<div class="form-group">
-   	 	<label>ºñ¹Ð±Û</label>
+   	 	<label>ë¹„ë°€ê¸€</label>
 		<input type="radio" name="is_lock" value="Y" checked="checked"> Y 
 		<input type="radio" name="is_lock" value="N"> N
   	</div>
   	<div class="form-group">
-   	 	<label>°øÁö»ç¿ë</label>
+   	 	<label>ê³µì§€ì‚¬ìš©</label>
 		<input type="radio" name="is_notice" value="Y" checked="checked"> Y 
 		<input type="radio" name="is_notice" value="N"> N
   	</div>
   
-  <input type="submit" class="btn btn-success" value="µî·Ï">
+  <input type="submit" class="btn btn-success" value="ë“±ë¡">
 
 	</form>
 </body>
