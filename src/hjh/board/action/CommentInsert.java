@@ -33,8 +33,10 @@ public class CommentInsert implements Action {
 		CommentDAO cDao = new CommentDAO();
 		Forward forward = new Forward();
 		cDao.insert(cDto);
-		forward.setDispacher(false);
-		forward.setPath("View.do?num="+boardnum);
+//		forward.setDispacher(false);
+//		forward.setPath("View.do?num="+boardnum);
+		forward.setDispacher(true);
+		forward.setPath("View.do");
 		return forward;
 
 	}
