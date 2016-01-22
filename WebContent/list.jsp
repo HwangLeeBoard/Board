@@ -42,7 +42,17 @@ if (sess.getAttribute("mem")==null){ %>
 <c:forEach items="${listDTO }" var="list">
 <tr>
 <td>${list.idx }</td>
-<td><a href="View.do?idx=${list.idx }&board_code=${board_code}&page=${page}">${list.title }</a></td>
+<td>
+step ${list.step}
+levels ${list.levels}
+seq ${list.seq}
+<c:forEach begin="1" end="${list.levels}">
+<%="&nbsp;&nbsp;&nbsp;&nbsp;"%>
+</c:forEach>
+<c:if test="${list.step>0 }">
+	<img src="img/re.gif">
+</c:if>
+<a href="View.do?idx=${list.idx }&board_code=${board_code}&page=${page}">${list.title }</a></td>
 <td>${list.writer }</td>
 <td>${list.likecnt }</td>
 <td>${list.badcnt }</td>

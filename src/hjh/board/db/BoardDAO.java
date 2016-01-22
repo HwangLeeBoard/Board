@@ -35,6 +35,7 @@ public class BoardDAO {
 				+ "       A.likecnt,A.badcnt," + "       A.IS_COMMENT," + "       A.IS_REPLY," + "       A.IS_PRIVATE,"
 				+ "       A.SEQ," + "       A.LEVELS," + "       A.STEP," + "       A.FILECNT," + "       A.HITS,"
 				+ "       A.MEMBER_SEQ  FROM BOARD A where A.board_code = ? order by A.seq desc, A.step asc ";
+		System.out.println(sql);
 		try {
 			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
@@ -138,14 +139,12 @@ public class BoardDAO {
 		return count;
 	}
 
-	public void reply(int idx, int board_code, int categorys, String writer, String passwd, String email, String title,
-			String content, String remote_addr, String dateTime, String is_notice, String is_like, String is_comment,
-			String is_reply, String is_private, int fileCnt, int hits, int step, int levels, int seq, int member_seq) {
+	public void reply(BoardDTO dto) {
 		// TODO Auto-generated method stub
-		increaseReplyStep(seq, step);
+		increaseReplyStep(dto.getSeq(), dto.getStep());
 		String sql = "insert into board (idx, title, writer, content, seq, step, levels, board_code, ";
 		sql += "categorys, passwd, email, remote_addr )";
-		sql += "values (board_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
+		sql += "values (idx_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -153,17 +152,17 @@ public class BoardDAO {
 		try {
 			con = MakeConnection.GetConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, title);
-			pstmt.setString(2, writer);
-			pstmt.setString(3, content);
-			pstmt.setInt(4, seq);
-			pstmt.setInt(5, step + 1);
-			pstmt.setInt(6, levels + 1);
-			pstmt.setInt(7, board_code);
-			pstmt.setInt(8, categorys);
-			pstmt.setString(9, passwd);
-			pstmt.setString(10, email);
-			pstmt.setString(11, remote_addr);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getWriter());
+			pstmt.setString(3, dto.getContent());
+			pstmt.setInt(4, dto.getSeq());
+			pstmt.setInt(5, dto.getStep() + 1);
+			pstmt.setInt(6, dto.getLevels() + 1);
+			pstmt.setInt(7, dto.getBoard_code());
+			pstmt.setInt(8, dto.getCategorys());
+			pstmt.setString(9, dto.getPasswd());
+			pstmt.setString(10, dto.getEmail());
+			pstmt.setString(11, dto.getRemote_addr());
 
 			pstmt.executeUpdate();
 

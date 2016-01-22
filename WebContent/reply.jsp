@@ -21,9 +21,9 @@ String papge= request.getParameter("page");
 <input type="hidden" name="board_code" value="${BoardDto.board_code }">
 <input type="hidden" name="page" value="<%=papge%>">
 <input type="hidden" name="categorys" value="${categorys }">
-<input type = "hidden" name="repRoot" value="${BoardDto.seq }">
-<input type = "hidden" name="repStep" value="${BoardDto.step }">
-<input type = "hidden" name="repIndent" value="${BoardDto.levels }">
+<input type = "hidden" name="seq" value="${BoardDto.seq }">
+<input type = "hidden" name="step" value="${BoardDto.step }">
+<input type = "hidden" name="levels" value="${BoardDto.levels }">
 <input type = "hidden" name="idx" value="${BoardDto.idx }">
 
 	<div class="form-group">
