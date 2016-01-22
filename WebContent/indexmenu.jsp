@@ -19,18 +19,18 @@
 	request.setAttribute("list", array);
 	
 	%>
-	<h3 style="color: red;">잡담</h3><br>
+	<h3 style="color: #12053d;">잡담</h3><br>
 	<c:forEach begin="0" step="1"  items="${list }" var="x">	
 	<c:if test="${x.board_code < 11 }">
 		<ul>	<li>
 	<a href="List.do?page=1&board_code=${x.board_code }">${x.board_name } </a></li></ul><br>
 	</c:if>
 	</c:forEach>
-	<h3 style="color: red;">자료공유</h3><br>
+	<h3 style="color: #12053d;">자료공유</h3><br>
 	<c:forEach begin="0" step="1" items="${list }"  var="x">
 	<c:if test="${x.board_code > 10 }">
 	<ul>
-	<li><a href="list.do?page=1&board_code=${x.board_code }">${x.board_name } </a></li></ul><br>
+	<li><a href="List.do?page=1&board_code=${x.board_code }">${x.board_name } </a></li></ul><br>
 	</c:if>	
 	</c:forEach>
 </body>

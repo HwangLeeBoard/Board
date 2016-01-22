@@ -16,7 +16,9 @@ import hjh.board.action.BoardList;
 import hjh.board.action.BoardReply;
 import hjh.board.action.BoardReplyView;
 import hjh.board.action.BoardView;
+import hjh.board.action.BoardWrite;
 import hjh.board.action.CommentInsert;
+import hjh.board.action.FileDown;
 import hjh.board.action.IsLike;
 import hjh.board.action.Update;
 import hjh.board.action.UpdateView;
@@ -74,9 +76,9 @@ public class FrontController extends HttpServlet {
 			forward = action.excute(request, response);
 
 		} else if (path.equals("/Write.do")) {
-			forward = new Forward();
-			forward.setPath("write.jsp");
-			forward.setDispacher(true);
+			action = new BoardWrite();
+			forward = action.excute(request, response);
+			
 		
 		} else if (path.equals("/List.do")) {
 			action = new BoardList();
@@ -152,8 +154,12 @@ public class FrontController extends HttpServlet {
 			action = new BoardReply();
 			forward=action.excute(request, response);
 			
+		}else if (path.equals("/FileDown.do")) {
+			action = new FileDown();
+			forward=action.excute(request, response);
+			
 		}
-		
+			
 		if (forward != null) {
 			if (forward.isDispacher() == false) {
 				response.sendRedirect(forward.getPath());

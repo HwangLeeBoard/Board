@@ -33,10 +33,11 @@ request.setAttribute("indexlistDTO", list);
 <th>작성자</th>
 <th>등록일</th>
 </tr>
+
 <c:forEach items="${indexlistDTO }" var="list">
 <tr>
 <td>${list.idx }</td>
-<td><a href="View.do?num=${list.idx }">${list.title }</a></td>
+<td><a href="View.do?idx=${list.idx }&board_code=${list.board_code}">${list.title }</a></td>
 <td>${list.writer }</td>
 <td>${list.dateTime }</td>
 </tr>

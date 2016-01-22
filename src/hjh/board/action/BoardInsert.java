@@ -84,6 +84,7 @@ public class BoardInsert implements Action {
 				origiginFileName = multi.getOriginalFileName(f);
 				FIleDTO fDto = new FIleDTO(0, boardnum, filename, filesize);
 				fDao.insert(fDto);
+				System.out.println(fDto);
 				i++;
 			}
 		} catch (Exception e) {

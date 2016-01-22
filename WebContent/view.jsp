@@ -43,8 +43,10 @@ font-size:15px;
 	</c:forEach>
 </div>
 <%
+if(request.getParameter("page")!=null){
 int nowPage= Integer.parseInt(request.getParameter("page"));
 request.setAttribute("page", nowPage);
+}
 %>
 	<input type="button"
 		onclick="location.href='ReplyView.do?idx=${BoardDto.idx}&page=${page }'"  class="btn btn-primary" value="답변">

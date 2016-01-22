@@ -36,8 +36,10 @@ public class BoardView implements Action {
 		request.setAttribute("BoardDto", bDto);
 		request.setAttribute("Filelist", list);
 		request.setAttribute("clist", clist);
+		System.out.println(bDto);
 		forward.setDispacher(true);
 		forward.setPath("view.jsp");
+		System.out.println(forward);
 		return forward;
 
 	}
